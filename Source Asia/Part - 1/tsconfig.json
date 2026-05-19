@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    /* Target & Environment */
+    "target": "ES2022",                          /* Use modern ECMAScript features supported by Node 20+ */
+    "module": "ESNext",                        /* Match standard Node.js module resolution */
+    "moduleResolution": "Bundler",              /* Ensure imports map properly to modern Node ESM resolutions */
+    "lib": ["ES2022"],                           /* Inject modern JS library APIs into global scope */
+
+    /* Output Structure */
+    "outDir": "./build",                          /* Direct all compiled JavaScript files here */
+    "rootDir": "./src",                          /* Restrict compiler input to this specific directory */
+    "removeComments": true,                      /* Shrink production file sizes by dropping code comments */
+    "sourceMap": true,                           /* Generate source maps to allow debugging production stack traces */
+
+    /* Strictness & Safety */
+    "strict": true,                              /* Activate all strict type-checking options at once */
+    "noImplicitAny": true,                       /* Throw errors on expressions implying an 'any' type hiddenly */
+    "strictNullChecks": true,                    /* Treat null and undefined as distinct individual types */
+    "strictFunctionTypes": true,                 /* Ensure function parameters check with strict variance rules */
+    "noImplicitThis": true,                      /* Raise errors when 'this' evaluates to an implied 'any' */
+    "alwaysStrict": true,                        /* Parse files in JS strict mode and emit "use strict" directives */
+
+    /* Additional Code Quality Checks */
+    "noUnusedLocals": true,                      /* Block production compilation if unused variables exist */
+    "noUnusedParameters": true,                  /* Block compilation if function parameters are left unused */
+    "noImplicitReturns": true,                   /* Ensure all code paths in a function explicitly return a value */
+    "noFallthroughCasesInSwitch": true,          /* Prevent accidental bugs from fallthrough cases in switch blocks */
+    "noUncheckedIndexedAccess": true,            /* Add 'undefined' to lookup types on objects/arrays via indexes */
+
+    /* Interoperability & Optimization */
+    "esModuleInterop": true,                     /* Emit helper JS for importing CommonJS modules cleanly */
+    "forceConsistentCasingInFileNames": true,    /* Enforce strict filename casing matching across OS platforms */
+    "skipLibCheck": true                         /* Speed up compilation by skipping checking external declaration files */
+  },
+  "include": ["src/**/*"],                       /* Compile everything inside the source folder */
+  "exclude": [
+    "node_modules",                              /* Always ignore third party modules */
+    "dist",                                      /* Ignore old build output artifacts */
+    "**/*.spec.ts",                              /* Exclude unit test files from production build bundle */
+    "**/*.test.ts"                               /* Exclude alternative naming pattern for test files */
+  ]
+}
