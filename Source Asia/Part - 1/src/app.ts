@@ -9,11 +9,11 @@ const app = express();
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
-app.get("/", (_req, res) => {
+app.get("/health", (_req, res) => {
   res.status(200).json(
     {
       success: true,
-      message: "Hello World",
+      message: "health check successful",
       time: new Date().toISOString()
     }
   )
