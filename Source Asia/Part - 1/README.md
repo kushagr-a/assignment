@@ -132,7 +132,7 @@ app.use("/api", apiRoutes);
 | **Express instance** | Creates and configures the Express 5 application. |
 | **Body parsing** | `express.json({ limit: "10kb" })` — Parses JSON request bodies and caps payload size at 10KB to prevent abuse. |
 | **URL encoding** | `express.urlencoded({ extended: true, limit: "10kb" })` — Parses URL-encoded form data with nested object support. |
-| **Health check** | `GET /` returns `200` with a success message and server timestamp. Useful for uptime monitoring. |
+| **Health check** | `GET /health` returns `200` with a success message and server timestamp. Useful for uptime monitoring. |
 | **Route mounting** | All API routes are mounted under the `/api` prefix. |
 | **Server start** | `startServer()` is an async function with error handling for port conflicts (`EADDRINUSE`) and general startup failures. |
 | **Graceful error handling** | Listens on the `error` event of the HTTP server. If the port is already in use, it logs a specific message and exits with code `1`. |
