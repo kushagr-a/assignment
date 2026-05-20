@@ -1,4 +1,5 @@
 import express from "express";
+import productRouter from "./routes/product.routes";
 
 // import { config } from "./config/config";
 // import apiRoutes from "./routes/request.routes";
@@ -23,7 +24,7 @@ app.get("/health", (_req, res) => {
     )
 });
 
-// app.use("/api", apiRoutes);
+app.use("/api", productRouter);
 
 const startServer = async (): Promise<void> => {
     try {
