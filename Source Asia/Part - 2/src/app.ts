@@ -1,18 +1,17 @@
 import express from "express";
+import helmet from "helmet";
+
+import { config } from "./config/config";
 import productRouter from "./routes/product.routes";
 
-// import { config } from "./config/config";
-// import apiRoutes from "./routes/request.routes";
 
 const app = express();
-
-const config = {
-    port: process.env.PORT || 3030
-}
 
 // Middleware
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use(helmet() // Add security headers
+)
 
 app.get("/health", (_req, res) => {
     res.status(200).json(
