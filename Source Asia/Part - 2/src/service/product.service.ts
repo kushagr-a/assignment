@@ -6,8 +6,10 @@ import {
 } from "../store/product.store";
 
 import {
+    IAddMediaRequest,
     ICreateProductRequest,
-    IProduct
+    IProduct,
+    IProductListItem
 } from "../types/product.types";
 
 const isValidUrl = (url: string): boolean => {
@@ -103,17 +105,142 @@ export const createProductService = (
     return product;
 };
 
-// get all products service
-export const getAllProductsService = () => {
 
-}
+// get all products with pagination
+export const getAllProductsService = (
+    page: number,
+    limit: number
+) => {
 
-// get product by id service
-export const getProductByIdService = () => {
+    const products =
+        Array.from(productsStore.values());
 
-}
+    const total = products.length;
 
-// add media to product service
-export const addMediaToProductService = () => {
+    const startIndex = (page - 1) * limit;
 
-}
+    const paginatedProducts =
+        products.slice(
+            startIndex,
+            startIndex + limit
+        );
+
+    const productList: IProductListItem[] =
+        paginatedProducts.map((product) => ({
+            id: product.id,
+
+            name: product.name,
+            sku: product.sku,
+
+            image_count:
+                product.image_urls.length,
+
+            video_count:
+                product.video_urls.length,
+
+            thumbnail_url:
+                product.image_urls[0] || undefined,
+
+            createdAt: product.createdAt
+        }));
+
+    return {
+        page,
+        limit,
+        total,
+        products: productList
+    };
+};
+
+// get product by id
+export const getProductByIdService = (
+    productId: string
+): IProduct => {
+
+    const product =
+        productsStore.get(productId);
+
+    if (!product) {
+        throw new Error("Product not found");
+    }
+
+    return product;
+};
+
+
+// add media to product
+export const addMediaToProductService = (
+    productId: string,
+    payload: IAddMediaRequest
+): IProduct => {
+
+    const product =
+        productsStore.get(productId);
+
+    if (!product) {
+        throw new Error("Product not found");
+    }
+
+    const {
+        image_urls,
+        video_urls
+    } = payload;
+
+    const hasImages =
+        image_urls && image_urls.length > 0;
+
+    const hasVideos =
+        video_urls && video_urls.length > 0;
+
+    if (!hasImages && !hasVideos) {
+        throw new Error(
+            "At least one image or video URL is required"
+        );
+    }
+
+    // Validate image urls
+    if (image_urls) {
+
+        if (image_urls.length > 20) {
+            throw new Error(
+                "Maximum 20 image URLs allowed"
+            );
+        }
+
+        for (const url of image_urls) {
+
+            if (!isValidUrl(url)) {
+                throw new Error(
+                    "Invalid image URL"
+                );
+            }
+        }
+
+        product.image_urls.push(...image_urls);
+    }
+
+    // Validate video urls
+    if (video_urls) {
+
+        if (video_urls.length > 20) {
+            throw new Error(
+                "Maximum 20 video URLs allowed"
+            );
+        }
+
+        for (const url of video_urls) {
+
+            if (!isValidUrl(url)) {
+                throw new Error(
+                    "Invalid video URL"
+                );
+            }
+        }
+
+        product.video_urls.push(...video_urls);
+    }
+
+    productsStore.set(product.id, product);
+
+    return product;
+};

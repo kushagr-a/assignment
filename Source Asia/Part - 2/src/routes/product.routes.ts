@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { createProduct } from "../controller/product.controller";
+import { addProductMedia, createProduct, getAllProducts, getProductById } from "../controller/product.controller";
 
 const productRouter = Router();
 
 productRouter.route("/createProduct").post(createProduct);
 
-// productRouter.route("/getAllProducts").get();
+productRouter.route("/getAllProducts").get(getAllProducts);
 
-// productRouter.route("/getProductById").get();
+productRouter.route("/getProductById/:id").get(getProductById);
 
-// productRouter.route("/:id/media").post();
+productRouter.route("/:id/media").post(addProductMedia);
 
 
 export default productRouter;
