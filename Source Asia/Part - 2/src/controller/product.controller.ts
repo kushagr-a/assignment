@@ -32,7 +32,7 @@ export const createProduct = (
                 ? error.message
                 : "Internal Server Error";
 
-        // Duplicate SKU
+        // handle duplicate SKU error
         if (message === "Duplicate SKU") {
 
             res.status(409).json({
@@ -43,7 +43,7 @@ export const createProduct = (
             return;
         }
 
-        // Validation errors
+        // handle validation errors
         if (
             message.includes("required") ||
             message.includes("Invalid") ||
@@ -79,7 +79,7 @@ export const getAllProducts = (
         const limit =
             Number(req.query.limit) || 10;
 
-        // Pagination validation
+        // pagination validation
         if (
             page < 1 ||
             limit < 1 ||
@@ -209,7 +209,7 @@ export const addProductMedia = (
                 ? error.message
                 : "Internal Server Error";
 
-        // Not found
+        
         if (
             message ===
             "Product not found"
@@ -223,7 +223,7 @@ export const addProductMedia = (
             return;
         }
 
-        // Validation errors
+        // validation errors
         if (
             message.includes("Invalid") ||
             message.includes("Maximum") ||

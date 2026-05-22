@@ -30,22 +30,22 @@ export const createProductService = (
         video_urls
     } = payload;
 
-    // Validate name
+    // validate name
     if (!name || !name.trim()) {
         throw new Error("Product name is required");
     }
 
-    // Validate sku
+    // validate sku
     if (!sku || !sku.trim()) {
         throw new Error("Product SKU is required");
     }
 
-    // Duplicate SKU
+    // validate duplicate SKU
     if (skuStore.has(sku)) {
         throw new Error("Duplicate SKU");
     }
 
-    // Validate image urls
+    // validate image urls
     if (image_urls) {
 
         if (image_urls.length > 20) {
@@ -198,7 +198,7 @@ export const addMediaToProductService = (
         );
     }
 
-    // Validate image urls
+    // validate image urls
     if (image_urls) {
 
         if (image_urls.length > 20) {
@@ -219,7 +219,7 @@ export const addMediaToProductService = (
         product.image_urls.push(...image_urls);
     }
 
-    // Validate video urls
+    // validate video urls
     if (video_urls) {
 
         if (video_urls.length > 20) {
