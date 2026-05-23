@@ -24,14 +24,14 @@ export class RateLimitService {
             requestTimestamps: []
         };
 
-        // Remove old timestamps outside rolling window
+        // remove old timestamps outside rolling window
         userStats.requestTimestamps =
             userStats.requestTimestamps.filter(
                 (timestamp) =>
                     currentTime - timestamp < this.WINDOW_SIZE
             );
 
-        // Check limit
+        // check limit
         if (userStats.requestTimestamps.length < this.maxRequests) {
 
             userStats.requestTimestamps.push(currentTime);
@@ -44,7 +44,7 @@ export class RateLimitService {
             return true;
         }
 
-        // Rejected request
+        // rejected request
         userStats.rejectedRequests += 1;
 
         this.store.set(userId, userStats);

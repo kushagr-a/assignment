@@ -12,7 +12,7 @@ export const createRequest = (
 
     const { user_id, payload } = req.body;
 
-    // Basic validation
+    // basic validation
     if (
         !user_id ||
         typeof user_id !== "string" ||
@@ -29,7 +29,7 @@ export const createRequest = (
     const isAllowed =
         rateLimitService.isAllowed(user_id);
 
-    // Rate limit exceeded
+    // rate limit exceeded
     if (!isAllowed) {
 
         res.status(429).json({
@@ -40,7 +40,7 @@ export const createRequest = (
         return;
     }
 
-    // Success
+    // success
     res.status(201).json({
         success: true,
         message: "Request accepted"
